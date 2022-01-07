@@ -37,7 +37,7 @@ That's not to say there aren't workarounds. The most common solution is "multi-c
 - KubeFed
 
 
- What does this end up looking like?
+What does this end up looking like?
 
 .. image:: images/concept3.png
    :width: 100%
@@ -61,13 +61,13 @@ What if instead of replicating clusters and applications, we could just extend o
 Basically, the worker node subnet is now ephemeral and completely flexible. It can live anywhere which means...your nodes can live anywhere, and still be able to talk to each other directly and securely. You can use Kubernetes just like you did before, but now, it truely is distributed!
 
 
-Out-of-Cluster Connectivity
+Remote Access (outbound)
 =====================================
 
 Problem
 ------------
 
-You have a cluster, and you have non-cluster resources outside of that cluster. Applications on your cluster need to access the non-cluster resources securely. How can you do this?
+Applications on your cluster need to access non-cluster resources securely. How can you do this?
 
 .. image:: images/concept5.png
    :width: 100%
@@ -77,31 +77,29 @@ You have a cluster, and you have non-cluster resources outside of that cluster. 
 Solution with Netmaker
 -------------------------
 
-Netmaker actually has two approaches to this. The first is to simply "mesh in" the other resources, effectively making them a part of the cluster subnet, which is accessible from all applications. For instance:
+Netmaker has two approaches to this. The first is to simply "mesh in" the other resources, effectively making them a part of the cluster network.
 
 .. image:: images/concept6.png
    :width: 100%
    :alt: Kubernetes Cluster
    :align: center
 
-This can be done with any arbitrary number of devices or servers.
-
-Alternatively, a device in any given region/location can act as a "gateway" into that location's private network, like this:
+Alternatively, a device in any given location can act as a "gateway" into that location's private network, like this:
 
 .. image:: images/concept7.png
    :width: 100%
    :alt: Kubernetes Cluster
    :align: center
 
-Either pattern can be used to connect your cluster to external resources securely.
+Either pattern can be used to allow secure connections from your cluster to external resources.
 
-Remote Cluster Connectivity
+Remote Access (inbound)
 =====================================
 
 Problem
 ------------
 
-This is the inverse of the above scenario. You have a cluster, and you have non-cluster resources outside of that cluster. Resources outside of the cluster need to access the pod/service/node network of Kubernetes securely. How can you do this?
+This is the inverse of the above scenario. Resources outside of the cluster need to access the pod/service/node network of Kubernetes securely.
 
 .. image:: images/concept8.png
    :width: 100%
@@ -111,13 +109,12 @@ This is the inverse of the above scenario. You have a cluster, and you have non-
 Solution with Netmaker
 -------------------------
 
-Just like with the reverse scenario, we can set a single node in our cluster as a gateway, and then grant our external resource access to the cluster networks via the gateway node.
+Similarly to the outbound scenario, we can set a single node in our cluster as an inbound gateway, and then external resources are granted access to the cluster network via the gateway.
 
 .. image:: images/concept9.png
    :width: 100%
    :alt: Kubernetes Cluster
    :align: center
-
 
 Cross-Cluster Networking
 =====================================
@@ -135,7 +132,7 @@ In some scenarios, you have clusters that must connect with each other. A single
 Solution with Netmaker
 -------------------------
 
-It is worth noting that there is currently a gap in this soultion. Clusters must have non-overlapping subnets. A future version of Netmaker will solve this issue. Assuming the clusters have non-overlapping subnets, one node on each cluster is added to a Netmaker network. Each node acts as a gateway to access the network of the other cluster as follows.
+One node on each cluster is added to a Netmaker network. Each node acts as an inbound gateway to the respective cluster network.
 
 .. image:: images/concept11.png
    :width: 100%
@@ -143,3 +140,5 @@ It is worth noting that there is currently a gap in this soultion. Clusters must
    :align: center
 
 In this way, the pod/service network of Cluster A becomes available from Cluster B, and vice versa.
+
+Current Limitation: Clusters must have non-overlapping subnets. A future version of Netmaker will resolve this constraint. 

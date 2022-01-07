@@ -229,7 +229,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#out-of-cluster-connectivity" class="md-nav__link">Out-of-Cluster Connectivity</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#remote-access-outbound" class="md-nav__link">Remote Access (outbound)</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#id1" class="md-nav__link">Problem</a>
         </li>
@@ -237,7 +237,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#remote-cluster-connectivity" class="md-nav__link">Remote Cluster Connectivity</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#remote-access-inbound" class="md-nav__link">Remote Access (inbound)</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#id3" class="md-nav__link">Problem</a>
         </li>
@@ -268,14 +268,14 @@
     <li class="md-nav__item">
     
     
-      <a href="#out-of-cluster-connectivity" class="md-nav__link">Out-of-Cluster Connectivity</a>
+      <a href="#remote-access-outbound" class="md-nav__link">Remote Access (outbound)</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="#remote-cluster-connectivity" class="md-nav__link">Remote Cluster Connectivity</a>
+      <a href="#remote-access-inbound" class="md-nav__link">Remote Access (inbound)</a>
       
     
     </li>
@@ -324,6 +324,13 @@
     <li class="md-nav__item">
     
     
+      <a href="distributed-guides.html#cluster-install" class="md-nav__link">Cluster Install</a>
+      
+    
+    </li>
+    <li class="md-nav__item">
+    
+    
       <a href="distributed-guides.html#wide-nodes" class="md-nav__link">Wide Nodes</a>
       
     
@@ -334,25 +341,11 @@
       <a href="distributed-guides.html#cloud-bursting" class="md-nav__link">Cloud Bursting</a>
       
     
-    </li></ul>
-    
     </li>
     <li class="md-nav__item">
     
     
-      <a href="additional-guides.html" class="md-nav__link">Distributed Cluster Guidance</a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="additional-guides.html#wide-nodes" class="md-nav__link">Wide Nodes</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="additional-guides.html#cloud-bursting" class="md-nav__link">Cloud Bursting</a>
+      <a href="distributed-guides.html#edge-based-clusters" class="md-nav__link">Edge-Based Clusters</a>
       
     
     </li></ul>
@@ -361,40 +354,33 @@
     <li class="md-nav__item">
     
     
-      <a href="troubleshoot.html" class="md-nav__link">Troubleshooting</a>
+      <a href="additional-guides.html" class="md-nav__link">Additional Guides</a>
       <ul class="md-nav__list"> 
     <li class="md-nav__item">
     
     
-      <a href="troubleshoot.html#common-issues" class="md-nav__link">Common Issues</a>
+      <a href="additional-guides.html#multi-cluster-networking" class="md-nav__link">Multi-Cluster Networking</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="troubleshoot.html#server" class="md-nav__link">Server</a>
+      <a href="additional-guides.html#remote-access-inbound" class="md-nav__link">Remote Access (Inbound)</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="troubleshoot.html#ui" class="md-nav__link">UI</a>
+      <a href="additional-guides.html#remote-access-outbound" class="md-nav__link">Remote Access (Outbound)</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="troubleshoot.html#netclient" class="md-nav__link">Netclient</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="troubleshoot.html#coredns" class="md-nav__link">CoreDNS</a>
+      <a href="additional-guides.html#cluster-nat-gateway" class="md-nav__link">Cluster NAT Gateway</a>
       
     
     </li></ul>
@@ -475,7 +461,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#out-of-cluster-connectivity" class="md-nav__link">Out-of-Cluster Connectivity</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#remote-access-outbound" class="md-nav__link">Remote Access (outbound)</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#id1" class="md-nav__link">Problem</a>
         </li>
@@ -483,7 +469,7 @@
         </li></ul>
             </nav>
         </li>
-        <li class="md-nav__item"><a href="#remote-cluster-connectivity" class="md-nav__link">Remote Cluster Connectivity</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#remote-access-inbound" class="md-nav__link">Remote Access (inbound)</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#id3" class="md-nav__link">Problem</a>
         </li>
@@ -532,9 +518,7 @@
 <li><p>Red Hat Advanced Cluster Management</p></li>
 <li><p>KubeFed</p></li>
 </ul>
-<blockquote>
-<div><p>What does this end up looking like?</p>
-</div></blockquote>
+<p>What does this end up looking like?</p>
 <a class="reference internal image-reference" href="_images/concept3.png"><img alt="Kubernetes Cluster" class="align-center" src="_images/concept3.png" style="width: 100%;"/></a>
 <p>That seems like a lot of extra infrastructure and overhead…and for what? Let’s see the Netmaker approach.</p>
 
@@ -546,32 +530,31 @@
 
 
 
-<h2 id="out-of-cluster-connectivity">Out-of-Cluster Connectivity<a class="headerlink" href="#out-of-cluster-connectivity" title="Permalink to this headline">¶</a></h2>
+<h2 id="remote-access-outbound">Remote Access (outbound)<a class="headerlink" href="#remote-access-outbound" title="Permalink to this headline">¶</a></h2>
 
 <h3 id="id1">Problem<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>You have a cluster, and you have non-cluster resources outside of that cluster. Applications on your cluster need to access the non-cluster resources securely. How can you do this?</p>
+<p>Applications on your cluster need to access non-cluster resources securely. How can you do this?</p>
 <a class="reference internal image-reference" href="_images/concept5.png"><img alt="Kubernetes Cluster" class="align-center" src="_images/concept5.png" style="width: 100%;"/></a>
 
 
 <h3 id="id2">Solution with Netmaker<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>Netmaker actually has two approaches to this. The first is to simply “mesh in” the other resources, effectively making them a part of the cluster subnet, which is accessible from all applications. For instance:</p>
+<p>Netmaker has two approaches to this. The first is to simply “mesh in” the other resources, effectively making them a part of the cluster network.</p>
 <a class="reference internal image-reference" href="_images/concept6.png"><img alt="Kubernetes Cluster" class="align-center" src="_images/concept6.png" style="width: 100%;"/></a>
-<p>This can be done with any arbitrary number of devices or servers.</p>
-<p>Alternatively, a device in any given region/location can act as a “gateway” into that location’s private network, like this:</p>
+<p>Alternatively, a device in any given location can act as a “gateway” into that location’s private network, like this:</p>
 <a class="reference internal image-reference" href="_images/concept7.png"><img alt="Kubernetes Cluster" class="align-center" src="_images/concept7.png" style="width: 100%;"/></a>
-<p>Either pattern can be used to connect your cluster to external resources securely.</p>
+<p>Either pattern can be used to allow secure connections from your cluster to external resources.</p>
 
 
 
-<h2 id="remote-cluster-connectivity">Remote Cluster Connectivity<a class="headerlink" href="#remote-cluster-connectivity" title="Permalink to this headline">¶</a></h2>
+<h2 id="remote-access-inbound">Remote Access (inbound)<a class="headerlink" href="#remote-access-inbound" title="Permalink to this headline">¶</a></h2>
 
 <h3 id="id3">Problem<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>This is the inverse of the above scenario. You have a cluster, and you have non-cluster resources outside of that cluster. Resources outside of the cluster need to access the pod/service/node network of Kubernetes securely. How can you do this?</p>
+<p>This is the inverse of the above scenario. Resources outside of the cluster need to access the pod/service/node network of Kubernetes securely.</p>
 <a class="reference internal image-reference" href="_images/concept8.png"><img alt="Kubernetes Cluster" class="align-center" src="_images/concept8.png" style="width: 100%;"/></a>
 
 
 <h3 id="id4">Solution with Netmaker<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>Just like with the reverse scenario, we can set a single node in our cluster as a gateway, and then grant our external resource access to the cluster networks via the gateway node.</p>
+<p>Similarly to the outbound scenario, we can set a single node in our cluster as an inbound gateway, and then external resources are granted access to the cluster network via the gateway.</p>
 <a class="reference internal image-reference" href="_images/concept9.png"><img alt="Kubernetes Cluster" class="align-center" src="_images/concept9.png" style="width: 100%;"/></a>
 
 
@@ -584,9 +567,10 @@
 
 
 <h3 id="id6">Solution with Netmaker<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p>It is worth noting that there is currently a gap in this soultion. Clusters must have non-overlapping subnets. A future version of Netmaker will solve this issue. Assuming the clusters have non-overlapping subnets, one node on each cluster is added to a Netmaker network. Each node acts as a gateway to access the network of the other cluster as follows.</p>
+<p>One node on each cluster is added to a Netmaker network. Each node acts as an inbound gateway to the respective cluster network.</p>
 <a class="reference internal image-reference" href="_images/concept11.png"><img alt="Kubernetes Cluster" class="align-center" src="_images/concept11.png" style="width: 100%;"/></a>
 <p>In this way, the pod/service network of Cluster A becomes available from Cluster B, and vice versa.</p>
+<p>Current Limitation: Clusters must have non-overlapping subnets. A future version of Netmaker will resolve this constraint.</p>
 
 
 

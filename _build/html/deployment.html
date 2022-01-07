@@ -220,14 +220,14 @@
     <li class="md-nav__item">
     
     
-      <a href="core-concepts.html#out-of-cluster-connectivity" class="md-nav__link">Out-of-Cluster Connectivity</a>
+      <a href="core-concepts.html#remote-access-outbound" class="md-nav__link">Remote Access (outbound)</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="core-concepts.html#remote-cluster-connectivity" class="md-nav__link">Remote Cluster Connectivity</a>
+      <a href="core-concepts.html#remote-access-inbound" class="md-nav__link">Remote Access (inbound)</a>
       
     
     </li>
@@ -268,9 +268,9 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#id1" class="md-nav__link">Considerations</a>
         </li>
-        <li class="md-nav__item"><a href="#a-directly-on-host-pre-k8s" class="md-nav__link">a) Directly on Host (pre-K8S):</a>
+        <li class="md-nav__item"><a href="#binary-on-host-pre-k8s" class="md-nav__link">Binary on Host (pre-K8S)</a>
         </li>
-        <li class="md-nav__item"><a href="#b-in-container-post-k8s" class="md-nav__link">b) In Container (post-K8S)</a>
+        <li class="md-nav__item"><a href="#containerized-post-k8s" class="md-nav__link">Containerized (post-K8S)</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -451,9 +451,9 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#id1" class="md-nav__link">Considerations</a>
         </li>
-        <li class="md-nav__item"><a href="#a-directly-on-host-pre-k8s" class="md-nav__link">a) Directly on Host (pre-K8S):</a>
+        <li class="md-nav__item"><a href="#binary-on-host-pre-k8s" class="md-nav__link">Binary on Host (pre-K8S)</a>
         </li>
-        <li class="md-nav__item"><a href="#b-in-container-post-k8s" class="md-nav__link">b) In Container (post-K8S)</a>
+        <li class="md-nav__item"><a href="#containerized-post-k8s" class="md-nav__link">Containerized (post-K8S)</a>
         </li></ul>
             </nav>
         </li></ul>
@@ -470,23 +470,22 @@
             
   
 <h1 id="deployment--page-root">Deployment<a class="headerlink" href="#deployment--page-root" title="Permalink to this headline">¶</a></h1>
-<p>This page covers the general guidance (regardless of use case) for the 3 stages of a Netmaker deployment: Server Installation, Network Creation, and Client Installation</p>
+<p>This page covers the general guidance for the 3 stages of a Netmaker deployment: Server Installation, Network Creation, and Client Installation</p>
 
 <h2 id="server-installation">1) Server Installation<a class="headerlink" href="#server-installation" title="Permalink to this headline">¶</a></h2>
 
 <h3 id="considerations">Considerations<a class="headerlink" href="#considerations" title="Permalink to this headline">¶</a></h3>
-<p>You may think that for a Kubernetes scenario, you would want to deploy the Netmaker server onto the cluster you are managing. However, this is usually not recommended.</p>
-<p>While typically reliable if correctly configured, consider if the Netmaker network stops working. Typically, you will need to debug the server. However, if Netmaker is deployed on a K8S cluster where it also manages the network, this means the container network is also now non-functional, meaning the netmaker server is unreachable! This can cause a huge headache and be very difficult to debug.</p>
-<p>For this reason, it is typically recommend to deploy the Netmaker server either on its own VM, or on a dedicated “management” cluster. In either case, the Netmaker server should not run inside a cluster where it will also be configuring cluster networking.</p>
+<p>It is typically recommend to deploy the Netmaker server either on its own VM, or on a dedicated “management” cluster. The Netmaker server acts best when it is in a dedicated environment. This avoids interference by separating it from the “managed” environments.</p>
+<p>In most scenarios, the Netmaker server should not run inside a cluster where it will also be configuring the cluster network. If a failure occurs and the Netmaker server runs inside of the cluster, then the Netmaker server will become unreachable for debugging, making the fix much more difficult.</p>
 <p>Except in special circumstances, the best place for the Netmaker server is a dedicated, globally accessible location.</p>
 
 
 <h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
-<p>With the above guidance in mind, there are several ways to install the server, based on the environment and how you wish to maintain the server.</p>
-<p><a class="reference external" href="https://github.com/gravitl/netmaker/tree/master#get-started-in-5-minutes">For Trials, PoC’s, and Experimenting</a> - Use this if you are looking to just get up and running as quickly as possible and try out a scenario.</p>
-<p><a class="reference external" href="https://docs.netmaker.org/quick-start.html">For Small Deployments (Single Server, Non-HA)</a> - Use this if you are deploying for yourself or a small team, but want the server to run long term.</p>
-<p><a class="reference external" href="https://docs.netmaker.org/server-installation.html#highly-available-installation-kubernetes">For a Highly Available Server on Kubernetes</a> - Use this if deploying on K8S (again, we recommend a dedicated cluster for this).</p>
-<p><a class="reference external" href="https://docs.netmaker.org/server-installation.html#highly-available-installation-vms-bare-metal">For a Highly Available Server (non-K8S)</a> - Use this if you’re looking for HA but don’t want to deploy it on Kubernetes.</p>
+<p>With the above guidance in mind, there are several ways to install the server, based on the environment and how you wish to maintain your server.</p>
+<p><a class="reference external" href="https://github.com/gravitl/netmaker/tree/master#get-started-in-5-minutes">For Trials, PoC’s, and Experimenting</a> - Use this if you are just looking to try out Netmaker.</p>
+<p><a class="reference external" href="https://docs.netmaker.org/quick-start.html">For Small Deployments (Single Server, Non-HA)</a> - Use this if you are deploying for yourself or a small team.</p>
+<p><a class="reference external" href="https://docs.netmaker.org/server-installation.html#highly-available-installation-kubernetes">For a Highly Available Server on Kubernetes</a> - Use this if deploying on K8S (again, we recommend a dedicated cluster).</p>
+<p><a class="reference external" href="https://docs.netmaker.org/server-installation.html#highly-available-installation-vms-bare-metal">For a Highly Available Server (non-K8S)</a> - Use this if you need HA but don’t want a dedicated cluster.</p>
 
 
 
@@ -501,6 +500,11 @@
 <li><p>The Kubernetes pod network</p></li>
 </ol>
 <p>Outside of this, any (private) address range should work.</p>
+<a class="reference internal image-reference" href="_images/deploy1.png"><img alt="Create Network" class="align-center" src="_images/deploy1.png" style="width: 75%;"/></a>
+<p>After creating your network, you may want to change a few default settings to make it more Kubernetes-friendly.</p>
+<p>Primarily, if deploying into containers on top of the cluster, you may want to change the MTU and the default port. Running in containers which go through multiple layers of traffic routing can lead to a larger MTU failing in some scenarios. 1024 is often a good number.</p>
+<p>In addition, consider changing the default port. If deploying onto containers using NodePorts, the default of 51821 is too high, since NodePorts use 30000-32767. 31821 might be a good default port to choose.</p>
+<a class="reference internal image-reference" href="_images/deploy2.png"><img alt="Edit Network" class="align-center" src="_images/deploy2.png" style="width: 75%;"/></a>
 
 
 <h2 id="client-installation">3) Client Installation<a class="headerlink" href="#client-installation" title="Permalink to this headline">¶</a></h2>
@@ -509,19 +513,22 @@
 <h3 id="id1">Considerations<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>For Kubernetes scenarios, the client can be installed:</p>
 <ol class="arabic simple">
-<li><p>Directly on the host</p></li>
+<li><p>Directly on the host as a binary + service</p></li>
 <li><p>As a container on the cluster</p></li>
 </ol>
-<p>#1 should be performed only when building distributed clusters. This is necessary because the virtual network must be created before the cluster is installed (so the client can’t be deployed to a container on the cluster yet). The interface created by the client is then used by the CNI for cluster networking.</p>
+<p>Option #1 is only necessary when building distributed clusters. This is because the virtual network must be created before the cluster is installed, so the netclient can’t be deployed to a container on the cluster yet. The Cluster/CNI is then configured during installation to use the interface created by the netclient for intra-cluster networking.</p>
 <p>For all other scenarios (remote access, multi-cluster networking, etc), we recommend deploying the client via containers. In some situations this will be a daemonset, and in others, it will be a standalone container on a dedicated host (usually for gateways).</p>
+<p>The following is guidance for those two primary methods.</p>
 
 
-<h3 id="a-directly-on-host-pre-k8s">a) Directly on Host (pre-K8S):<a class="headerlink" href="#a-directly-on-host-pre-k8s" title="Permalink to this headline">¶</a></h3>
+<h3 id="binary-on-host-pre-k8s">Binary on Host (pre-K8S)<a class="headerlink" href="#binary-on-host-pre-k8s" title="Permalink to this headline">¶</a></h3>
 <p>Regular client install instructions can be followed here: <a class="reference external" href="https://docs.netmaker.org/getting-started.html#deploy-nodes">https://docs.netmaker.org/getting-started.html#deploy-nodes</a></p>
 <p>More detailed client install instructions can be found here: <a class="reference external" href="https://docs.netmaker.org/client-installation.html">https://docs.netmaker.org/client-installation.html</a></p>
+<p>After the client has been installed, you may want to change some of the node settings. For instance, if the node is expected to maintain a constant IP address, it may be best to turn off “Roaming” and turn on “Is Static”. You may also want to reduce MTU (if you’re not getting a connection), change the port (if there’s a conflict), or even change the endpoint, if you’d prefer intra-cluster traffic to occur over a different address range.</p>
+<a class="reference internal image-reference" href="_images/deploy3.png"><img alt="Edit Network" class="align-center" src="_images/deploy3.png" style="width: 75%;"/></a>
 
 
-<h3 id="b-in-container-post-k8s">b) In Container (post-K8S)<a class="headerlink" href="#b-in-container-post-k8s" title="Permalink to this headline">¶</a></h3>
+<h3 id="containerized-post-k8s">Containerized (post-K8S)<a class="headerlink" href="#containerized-post-k8s" title="Permalink to this headline">¶</a></h3>
 <p>To deploy in a container, you will need a manifest. Examples can be found here: <a class="reference external" href="https://github.com/gravitl/netmak8s">https://github.com/gravitl/netmak8s</a></p>
 <p>If deploying a daemonset to encompass all (or most) nodes, use netclient-daemonset.yml as the basis. You will need to insert a key (ACCESS_TOKEN), specify a network (NETWORK), and change to the appropriate version.</p>
 <p>If deploying a gateway, use netclient-gateway.yml as the basis. You will need to insert a key (ACCESS_TOKEN), specify a network (NETWORK), and change to the appropriate version.</p>
