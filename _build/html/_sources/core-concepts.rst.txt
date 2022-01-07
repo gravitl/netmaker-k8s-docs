@@ -1,0 +1,145 @@
+===============
+Core Concepts
+===============
+
+Inflexible Clusters
+==========================
+
+Problem
+------------------------------- 
+
+Let's start with the problem Netmaker was designed to solve: Inflexible Kubernetes clusters. Here's what the typical Kubernetes cluster looks like:
+
+.. image:: images/concept1.png
+   :width: 50%
+   :alt: Kubernetes Cluster
+   :align: center
+
+Kubernetes is designed to be flexible and scalable. It's distributed! So, we should be able to deploy our nodes anywhere, right? Well, turns out, you cant:
+
+.. image:: images/concept2.png
+   :width: 100%
+   :alt: Kubernetes Cluster
+   :align: center
+
+This does not work because worker nodes need to be in the same subnet to talk to each other. They need private addresses to communicate over. Otherwise, traffic doesn't get through, and they can't talk to each other.
+
+So, if you want a Kubernets cluster that spans data centers, clouds, edge environments, IoT, or anything else, as it stands, you're out of luck.
+
+Existing Solutions
+---------------------------------------------------------
+
+That's not to say there aren't workarounds. The most common solution is "multi-cluster", that is to say, deploy a cluster per environment, and use a platorm to coordinate apps across these environments. There are many solutions for this, including:
+
+- Rancher
+- Tanzu
+- Red Hat Advanced Cluster Management
+- KubeFed
+
+
+ What does this end up looking like?
+
+.. image:: images/concept3.png
+   :width: 100%
+   :alt: Kubernetes Cluster
+   :align: center
+
+
+That seems like a lot of extra infrastructure and overhead...and for what? Let's see the Netmaker approach.
+
+
+Solution With Netmaker
+---------------------------------------------------------
+
+What if instead of replicating clusters and applications, we could just extend our cluster between these environments? Here's how it looks with Netmaker.
+
+.. image:: images/concept4.png
+   :width: 100%
+   :alt: Kubernetes Cluster
+   :align: center
+
+Basically, the worker node subnet is now ephemeral and completely flexible. It can live anywhere which means...your nodes can live anywhere, and still be able to talk to each other directly and securely. You can use Kubernetes just like you did before, but now, it truely is distributed!
+
+
+Out-of-Cluster Connectivity
+=====================================
+
+Problem
+------------
+
+You have a cluster, and you have non-cluster resources outside of that cluster. Applications on your cluster need to access the non-cluster resources securely. How can you do this?
+
+.. image:: images/concept5.png
+   :width: 100%
+   :alt: Kubernetes Cluster
+   :align: center
+
+Solution with Netmaker
+-------------------------
+
+Netmaker actually has two approaches to this. The first is to simply "mesh in" the other resources, effectively making them a part of the cluster subnet, which is accessible from all applications. For instance:
+
+.. image:: images/concept6.png
+   :width: 100%
+   :alt: Kubernetes Cluster
+   :align: center
+
+This can be done with any arbitrary number of devices or servers.
+
+Alternatively, a device in any given region/location can act as a "gateway" into that location's private network, like this:
+
+.. image:: images/concept7.png
+   :width: 100%
+   :alt: Kubernetes Cluster
+   :align: center
+
+Either pattern can be used to connect your cluster to external resources securely.
+
+Remote Cluster Connectivity
+=====================================
+
+Problem
+------------
+
+This is the inverse of the above scenario. You have a cluster, and you have non-cluster resources outside of that cluster. Resources outside of the cluster need to access the pod/service/node network of Kubernetes securely. How can you do this?
+
+.. image:: images/concept8.png
+   :width: 100%
+   :alt: Kubernetes Cluster
+   :align: center
+
+Solution with Netmaker
+-------------------------
+
+Just like with the reverse scenario, we can set a single node in our cluster as a gateway, and then grant our external resource access to the cluster networks via the gateway node.
+
+.. image:: images/concept9.png
+   :width: 100%
+   :alt: Kubernetes Cluster
+   :align: center
+
+
+Cross-Cluster Networking
+=====================================
+
+Problem
+------------
+
+In some scenarios, you have clusters that must connect with each other. A single, wide cluster is not an option, and clusters in different environments need to be able to directly access the pod/service network of each other.
+
+.. image:: images/concept10.png
+   :width: 100%
+   :alt: Kubernetes Cluster
+   :align: center
+
+Solution with Netmaker
+-------------------------
+
+It is worth noting that there is currently a gap in this soultion. Clusters must have non-overlapping subnets. A future version of Netmaker will solve this issue. Assuming the clusters have non-overlapping subnets, one node on each cluster is added to a Netmaker network. Each node acts as a gateway to access the network of the other cluster as follows.
+
+.. image:: images/concept11.png
+   :width: 100%
+   :alt: Kubernetes Cluster
+   :align: center
+
+In this way, the pod/service network of Cluster A becomes available from Cluster B, and vice versa.
