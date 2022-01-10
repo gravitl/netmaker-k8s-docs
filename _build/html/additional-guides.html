@@ -55,7 +55,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Troubleshooting" href="troubleshoot.html" />
+    <link rel="next" title="Resources" href="resources.html" />
     <link rel="prev" title="Distributed Cluster Guidance" href="distributed-guides.html" />
   
    
@@ -220,14 +220,14 @@
     <li class="md-nav__item">
     
     
-      <a href="core-concepts.html#out-of-cluster-connectivity" class="md-nav__link">Out-of-Cluster Connectivity</a>
+      <a href="core-concepts.html#remote-access-outbound" class="md-nav__link">Remote Access (outbound)</a>
       
     
     </li>
     <li class="md-nav__item">
     
     
-      <a href="core-concepts.html#remote-cluster-connectivity" class="md-nav__link">Remote Cluster Connectivity</a>
+      <a href="core-concepts.html#remote-access-inbound" class="md-nav__link">Remote Access (inbound)</a>
       
     
     </li>
@@ -276,7 +276,7 @@
     <li class="md-nav__item">
     
     
-      <a href="distributed-guides.html#cluster-install-guidance" class="md-nav__link">Cluster Install Guidance</a>
+      <a href="distributed-guides.html#cluster-install" class="md-nav__link">Cluster Install</a>
       
     
     </li>
@@ -317,26 +317,19 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#additional-guides--page-root" class="md-nav__link">Additional Guides</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#multi-cluster-networking" class="md-nav__link">Multi-Cluster Networking</a>
-        </li>
         <li class="md-nav__item"><a href="#remote-access-inbound" class="md-nav__link">Remote Access (Inbound)</a>
         </li>
         <li class="md-nav__item"><a href="#remote-access-outbound" class="md-nav__link">Remote Access (Outbound)</a>
         </li>
         <li class="md-nav__item"><a href="#cluster-nat-gateway" class="md-nav__link">Cluster NAT Gateway</a>
+        </li>
+        <li class="md-nav__item"><a href="#multi-cluster-networking" class="md-nav__link">Multi-Cluster Networking</a>
         </li></ul>
             </nav>
         </li>
   </ul>
 </nav>
       <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="#multi-cluster-networking" class="md-nav__link">Multi-Cluster Networking</a>
-      
-    
-    </li>
     <li class="md-nav__item">
     
     
@@ -357,46 +350,11 @@
       <a href="#cluster-nat-gateway" class="md-nav__link">Cluster NAT Gateway</a>
       
     
-    </li></ul>
-    
     </li>
     <li class="md-nav__item">
     
     
-      <a href="troubleshoot.html" class="md-nav__link">Troubleshooting</a>
-      <ul class="md-nav__list"> 
-    <li class="md-nav__item">
-    
-    
-      <a href="troubleshoot.html#common-issues" class="md-nav__link">Common Issues</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="troubleshoot.html#server" class="md-nav__link">Server</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="troubleshoot.html#ui" class="md-nav__link">UI</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="troubleshoot.html#netclient" class="md-nav__link">Netclient</a>
-      
-    
-    </li>
-    <li class="md-nav__item">
-    
-    
-      <a href="troubleshoot.html#coredns" class="md-nav__link">CoreDNS</a>
+      <a href="#multi-cluster-networking" class="md-nav__link">Multi-Cluster Networking</a>
       
     
     </li></ul>
@@ -467,13 +425,13 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#additional-guides--page-root" class="md-nav__link">Additional Guides</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#multi-cluster-networking" class="md-nav__link">Multi-Cluster Networking</a>
-        </li>
         <li class="md-nav__item"><a href="#remote-access-inbound" class="md-nav__link">Remote Access (Inbound)</a>
         </li>
         <li class="md-nav__item"><a href="#remote-access-outbound" class="md-nav__link">Remote Access (Outbound)</a>
         </li>
         <li class="md-nav__item"><a href="#cluster-nat-gateway" class="md-nav__link">Cluster NAT Gateway</a>
+        </li>
+        <li class="md-nav__item"><a href="#multi-cluster-networking" class="md-nav__link">Multi-Cluster Networking</a>
         </li></ul>
             </nav>
         </li>
@@ -488,18 +446,66 @@
             
   
 <h1 id="additional-guides--page-root">Additional Guides<a class="headerlink" href="#additional-guides--page-root" title="Permalink to this headline">¶</a></h1>
-<p>The following are sets of guidance and best practices for setting up various use cases on Kubernetes. These use cases assume you have deployed Netmaker and created a Network. If you have not done so, please first complete those steps (the Deployment section of the documentation can provide guidance).</p>
-
-<h2 id="multi-cluster-networking">Multi-Cluster Networking<a class="headerlink" href="#multi-cluster-networking" title="Permalink to this headline">¶</a></h2>
-
+<p>The following are sets of guidance and best practices for setting up various use cases on Kubernetes. If you have not done so, please first complete this following guidance in the Deployment section of the documentation.</p>
 
 <h2 id="remote-access-inbound">Remote Access (Inbound)<a class="headerlink" href="#remote-access-inbound" title="Permalink to this headline">¶</a></h2>
+<p>Remote Access to the internal cluster network is sometimes required for various reasons For instance:</p>
+<ol class="arabic simple">
+<li><p>Developers require access to a service on the development cluster in order to test components being developed locally. For example, they are developing a front end locally and wish to attach it to the dev cluster backend.</p></li>
+<li><p>An application is hosted outside the cluster, and the team wishes to provide a VPN-based connection to an internal cluster service.</p></li>
+</ol>
+<p>Whatever the scenario, setting up inbound remote access is relatively easy. All we need is a single network in Netmaker and a single deployment on the cluster. Create a network with Netmaker and deploy a netclient-gateway onto the cluster following guidance in the Deployment section of the docs.</p>
+<p>Next, configure the gateway in the Netmaker UI. Run <cite>kubectl exec -it netclient-gateway ip a</cite> on each cluster to determine the interface used for the pod and service networks.</p>
+<a class="reference internal image-reference" href="_images/additional-guides-1.png"><img alt="multi-cluster networking" class="align-center" src="_images/additional-guides-1.png" style="width: 75%;"/></a>
+<p>Once the gateway is created, you can use the Netmaker server as an Ingress gateway. Click to create the ingress gateway on the Netmaker node, then in the Ext Client panel, create some WireGuard configs.</p>
+<a class="reference internal image-reference" href="_images/exclient1.png"><img alt="ingress gateway" class="align-center" src="_images/exclient1.png" style="width: 75%;"/></a>
+<a class="reference internal image-reference" href="_images/exclient2.png"><img alt="ext client" class="align-center" src="_images/exclient2.png" style="width: 75%;"/></a>
+<p>These configs can be used with wg-quick (wg quick up /path/to/conf), and your machine will now have access to the cluster via the gateways (for more info, see here: <a class="reference external" href="https://man7.org/linux/man-pages/man8/wg-quick.8.html">https://man7.org/linux/man-pages/man8/wg-quick.8.html</a>)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">interface</span><span class="p">:</span> <span class="n">mega</span><span class="o">-</span><span class="n">ninja</span>
+  <span class="n">public</span> <span class="n">key</span><span class="p">:</span> <span class="n">XpRTNPLWvJE6H</span><span class="o">+</span><span class="n">mL56pcLWZ70GqhryE</span><span class="o">=</span>
+  <span class="n">private</span> <span class="n">key</span><span class="p">:</span> <span class="p">(</span><span class="n">hidden</span><span class="p">)</span>
+  <span class="n">listening</span> <span class="n">port</span><span class="p">:</span> <span class="mi">49781</span>
+
+<span class="n">peer</span><span class="p">:</span> <span class="n">ctdL1h8FxrX2SkYx12L9sTu904</span><span class="o">=</span>
+  <span class="n">endpoint</span><span class="p">:</span> <span class="mf">152.181</span><span class="o">.</span><span class="mf">121.135</span><span class="p">:</span><span class="mi">51821</span>
+  <span class="n">allowed</span> <span class="n">ips</span><span class="p">:</span> <span class="mf">10.101</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span> <span class="mf">10.244</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">16</span>
+  <span class="n">latest</span> <span class="n">handshake</span><span class="p">:</span> <span class="mi">29</span> <span class="n">seconds</span> <span class="n">ago</span>
+  <span class="n">transfer</span><span class="p">:</span> <span class="mf">14.84</span> <span class="n">KiB</span> <span class="n">received</span><span class="p">,</span> <span class="mf">41.32</span> <span class="n">KiB</span> <span class="n">sent</span>
+  <span class="n">persistent</span> <span class="n">keepalive</span><span class="p">:</span> <span class="n">every</span> <span class="mi">20</span> <span class="n">seconds</span>
+</pre></div>
+</div>
 
 
 <h2 id="remote-access-outbound">Remote Access (Outbound)<a class="headerlink" href="#remote-access-outbound" title="Permalink to this headline">¶</a></h2>
+<p>Outbound remote access is slightly more complicated, but still relatively straightforward. The primary use case here is if an application or environment needs to be accessible outside of the cluster. Netmaker can be provided to grant cluster applications secure access to an external application server or environment.</p>
+<p>First, a DaemonSet must be deployed on all nodes that should have access to the external environment (a selector can be used to limit the set of nodes). Follow the Deployment guide to set up the DaemonSet.</p>
+<p>Second, an additional netclient must be deployed in the environment where the cluster needs access. For instance, if it’s a Linux server, you can follow the guide to deploy a netclient on a linux VM: <a class="reference external" href="https://docs.netmaker.org/getting-started.html#deploy-nodes">https://docs.netmaker.org/getting-started.html#deploy-nodes</a></p>
+<p>This is enough to make an external VM accessible to the cluster. However, we may want to take this one setp further. Let’s say the VM is in a VPC, and we want full access to that VPC. Perhaps there are other applications deployed there which should be accessible. For this, we can configure that same VM as an Egress Gateway. In the UI, click to set the node as an Egress Gateway. Then specify the CIDR of the VPC, and the interface used to access this subnet (try running “ip a” on the machine to find the correct subnet.).</p>
+<p>Your cluster nodes should now have full access to the specified CIDR. You may also just deploy multiple clients on whatever machines the cluster should be able to access, to limit the scope.</p>
 
 
 <h2 id="cluster-nat-gateway">Cluster NAT Gateway<a class="headerlink" href="#cluster-nat-gateway" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes, cluster traffic should be routed through an individual machine which acts as a “NAT Gateway” for the cluster. This way, it is easier to interact with external firewalls (only need to whitelist one entry point) and you can more easily manage outbound cluster traffic.</p>
+<p>This scenario is almost identical to the Remote Access scenario, but with one distinction: In the Remote Access scenario, we set one machine as an egress gateway to a certain CIDR. In this scenario, the egress gateway routes for <strong>all</strong> public CIDRs.</p>
+<p>Often, you will set the Netmaker server as the egress gateway. Then, simply paste in the list below, and specify the interface (typically eth0):</p>
+<p><cite>0.0.0.0/5,8.0.0.0/7,11.0.0.0/8,12.0.0.0/6,16.0.0.0/4,32.0.0.0/3,64.0.0.0/2,128.0.0.0/3,160.0.0.0/5,168.0.0.0/6,172.0.0.0/12,172.32.0.0/11,172.64.0.0/10,172.128.0.0/9,173.0.0.0/8,174.0.0.0/7,176.0.0.0/4,192.0.0.0/9,192.128.0.0/11,192.160.0.0/13,192.169.0.0/16,192.170.0.0/15,192.172.0.0/14,192.176.0.0/12,192.192.0.0/10,193.0.0.0/8,194.0.0.0/7,196.0.0.0/6,200.0.0.0/5,208.0.0.0/4</cite></p>
+<p>After creating the gateway, outbound traffic from the cluster will begin to flow through that server.</p>
+<p><strong>Note:</strong> You may be tempted to enter 0.0.0.0/0 as the CIDR for your gateway. <strong>This will not work.</strong> The netclient ignores gateway ranges that overlap with local CIDRs. 0.0.0.0 is a superset of all CIDRs, so overlapps with everything, and will be ignored. The above list accounts for most public CIDRs and should work for most use cases, while being customizable to allow for additional ranges.</p>
+
+
+<h2 id="multi-cluster-networking">Multi-Cluster Networking<a class="headerlink" href="#multi-cluster-networking" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="_images/additional-guides-1.png"><img alt="multi-cluster networking" class="align-center" src="_images/additional-guides-1.png" style="width: 75%;"/></a>
+<p><strong>Prereq 1:</strong> Multi-Cluster Networking can currently only be configured for clusters with non-overlapping pod/service CIDRs. Please confirm this before moving forward.</p>
+<p><strong>Prereq 2:</strong> This guide assumes you have 2 clusters, A and B. Similar steps can be followed for additional clusters (for 3 clusters, use 3 networks, etc).</p>
+<p>To configure multi-cluster networking, you will need two networks. Let’s call these Cluster-A and Cluster-B. Create these in your Netmaker UI and give them separate subnets.</p>
+<p>Deploy a DaemonSet on each cluster following the steps laid out in the Deployment documentation. The DaemonSet should use the key for the respective network.</p>
+<p>We now have 2 mesh networks containing all of the nodes for each cluster, but they are not able to communicate with each other.</p>
+<p>Next, deploy a gateway on each cluster for the <strong>opposite</strong> network. This gateway acts as the entrypoint for traffic coming from the other cluster. Follow the guide in the Deployment section for deploying a gateway.</p>
+<p>Finally, configure each gateway as an Egress Gateway. Run <cite>kubectl exec -it netclient-gateway ip a</cite> on each cluster to determine the interface used for the pod and service networks.</p>
+<a class="reference internal image-reference" href="_images/additional-guides-2.png"><img alt="multi-cluster networking" class="align-center" src="_images/additional-guides-2.png" style="width: 75%;"/></a>
+<p>After completing this on both clusters, the pod and service network should now be directly accessible from each cluster.</p>
+<p><strong>Bonus: Service Discovery</strong></p>
+<p>To add DNS-based service discovery to your cluster, see this tutorial: <a class="reference external" href="https://itnext.io/multi-cluster-kubernetes-networking-with-netmaker-bfa4e22eb2fb">https://itnext.io/multi-cluster-kubernetes-networking-with-netmaker-bfa4e22eb2fb</a></p>
 
 
 
@@ -527,12 +533,12 @@
             </a>
           
           
-            <a href="troubleshoot.html" title="Troubleshooting"
+            <a href="resources.html" title="Resources"
                class="md-flex md-footer-nav__link md-footer-nav__link--next"
                rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
                 class="md-flex__ellipsis"> <span
-                class="md-footer-nav__direction"> Next </span> Troubleshooting </span>
+                class="md-footer-nav__direction"> Next </span> Resources </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink"><i
                 class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>

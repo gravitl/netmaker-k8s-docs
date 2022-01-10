@@ -101,7 +101,19 @@ Containerized (post-K8S)
 
 To deploy in a container, you will need a manifest. Examples can be found here: https://github.com/gravitl/netmak8s
 
-If deploying a daemonset to encompass all (or most) nodes, use netclient-daemonset.yml as the basis. You will need to insert a key (ACCESS_TOKEN), specify a network (NETWORK), and change to the appropriate version.
+If deploying a daemonset to encompass all (or most) nodes, use netclient-daemonset.yml as the basis. You will need to insert a key (TOKEN_VALUE), and change the netclient image tag to the appropriate version (e.g. v0.9.3).
 
-If deploying a gateway, use netclient-gateway.yml as the basis. You will need to insert a key (ACCESS_TOKEN), specify a network (NETWORK), and change to the appropriate version.
+If deploying a gateway, use netclient-gateway.yml as the basis. You will need to insert a key (TOKEN_VALUE), and change the netclient image tag to the appropriate version (e.g. v0.9.3).
+
+There are various ways these manifests can be modified to match various scenarios which you should be aware of:
+
+**Port:** Rather than specify a port, UDP Hole Punching can be used. In this case, the fields for NETCLIENT_IS_STATIC, NETCLIENT_ROAMING, NETCLIENT_PORT, and NETCLIENT_ENDPOINT can be left blank. For typical deployments, we recommend leaving these fields set.
+
+**NodePort:** In some scenarios, you will want to pair a NodePort with the Port. For instance, if you cannot deploy the netclient with host privileges/networking, you can remove these privileges in the manifest, expose the port on the pod, and create a NodePort service that will route traffic to the pod. In such a scenario we recommend using 31821 as the Port for WireGuard in the manifest. You should then use the **same** NodePort to map to the DaemonSet. Here is an example manifest: https://raw.githubusercontent.com/gravitl/netmak8s/main/nodeport-example.yaml 
+
+**Kernel WireGuard:** The container ships with wireguard-go, which is slower than kernel WireGuard. Often, a DevOps engineer or Developer will not have control over the underlying infrastructure. If it's a cloud provider k8s distribution, even the operations team often cannot do much about OS-level dependencies. However, if you do have the option to SSH into the host machines and install software, it is preferable to have kernel WireGuard installed.
+
+In such cases, after installing kernel WireGuard on the host (e.g. `apt install wireguard wireguard-tools`), you can use the kernel versions of the manifests (netclient-gateway-kernel.yml and netclient-daemonset.yml)
+
+For DigitalOcean, we also have a manifest that will both deploy the netclient and a WireGuard controller, which will install WireGuard on the host whenever it is not present. Something similar can be done for other cloud providers, but you must know the correct commands to run in order to install WireGuard (must know underlying OS). Then you can simply modify the script (inline in the yaml) to install on your cloud: https://github.com/gravitl/netmaker/blob/master/kube/netclient-template-doks.yaml 
 
